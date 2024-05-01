@@ -1,0 +1,671 @@
+
+I. MỘT SỐ KHÁI NIỆM LIÊN QUAN ĐẾN KIỂM THỬ PHẦN MỀM - SOFTWARE TESTING
+1. The classic statement (câu phát biểu kinh điển)
+- phân biệt các thuật ngữ: mistake, error, defect, failure,
+fault, bug. Phải phân biệt trong ngữ cảnh, đoạn văn, câu chuyện.
+-> có 1 thứ ko như mong đợi xảy ra, sự sai lệch nào đó theo dự kiến 
+nó phải là thế này, mà nó lại ra thế khác!!!
+
+	-> bug là thứ gây nên điều ko ổn của app, developer phải fix
+- Thú vị, funny của "Bug" "[The] First actual case of a bug being found
+- Bug là 1 tính năng :)
+
+2. Định nghĩa kiểm thử
+* So sánh:
+ - Giữa cái mình kì vộng app phải như thế này (Expected) và 
+   cái thực tế App đang run và trả ra (Actual) What is vs. Ought to be
+   - Chạy app, chạy tính năng, chức năng, màn hình, sau đó đánh giá (evaluate/compare) 
+     kết quả tính toán/hiển thị của app so với (vs.) cái ta kì vọng
+   	(dynamic
+   - Kiểm tra xem app đã viết/implement/hiện thực có đúng như thiết kế/mô tả
+     /specification
+   - ("Static testing" - kiểm tra các bản thiết kế đối chiếu với việc app đc code/design 
+     ra sao) ko chạy app
+
+   - (Mở rộng ko kém quan trọng) - nối vói môn SWR - kiểm tra coi REQS ỔN KHÔNG< KHẢ THI KO< PHÙ
+   HỢP NHU CẦU NGƯỜI DÙNG HAY KO!!!
+ 
+3. Ai ra/tham giao vào phán quyết App ổn, App có bug?
+- Developer: gã phải chịu trách nhiệm chất lượng code của mình 
+	     - đọc code mình viết
+	     - chạy code mình viết, kiểm tra xem Expected có == Actual hay ko
+	     ???
+		kĩ thuật nào để kiểm tra code của mình hiệu quả!!!
+	 TDD, 				Unit Test	
+	 Test First Development		
+	 Test Driven Development (thay đổi 1 chút hành vi viết code)
+	 ---> dẫn đến CI/CD/DevOpss
+			Continous Integration
+ - Tester (QC - Quality Control): thánh soi, dân kiểm thử phần mềm
+	    (thường sẽ ko mở coe đọc hiểu thuật toán, cách viết code...)
+	    lỗi đc ghi nhận bỏi Tester/Dev team, sau đó fix
+	    Tester căn cứ trên cái gì để tìm sai sót/bug/lỗi
+	    - Document (Specification, SRS, FRS, BRS... -> môn SWR302 tui sẽ giảng) - > static testing, em là thánh soi, em soi ngay khi viết Reqs, thiết kế UI, DB, kiến trúc
+
+* MỞ RỘNG: Job Title trong nghề làm phần mềm
+
+- BA (Business Analyst) - reqs đi khách
+
+- Designer (UI)
+
+- DB Designer -> Data Engineer (AI), BI (Businees Intelligence)
+
+- Developer (code): FE, BE, Full-stack
+
+- Tester (QC)
+
+- Supporter (Cài đặt, hướng dẫn sử dụng, ghi nhận sự cố...)
+
+- Kiến trúc sư (Solution Architect/Software Architect 4-5k$/month)
+
+- Team pt p/m theo Scrum - Scrum Master 
+- PM (Project Manager)
+
+- PM khác (Product Manager)	 	
+- CIO (cao cấp) Chief Information Officer
+- CTO 
+
+
+	- ĐƯA APP CHO TUI TEST (ĐƯA APP/KO ĐƯA CODE)
+		2 KĨ THUẬT ĐỂ TEST APP (CHẠY APP ĐỂ SO SÁNH EXPECTED vs. ACTUAL)
+	     1. TRÂU BÒ DÙNG SỨC, CHẠY = CƠM
+
+	     2. LẬP TRÌNH ĐỂ TỰ ĐỘNG HOÁ QUÁ TRÌNH MỞ 			APP/RUN APP. TỰ ĐỘNG DI CHUYỂN MOUSE 
+		TỰ ĐỘNG INPUT DATA, TỰ ĐỘNG NHẤN NÚT, 
+		TỰ ĐỘNG CAPTURE ACTUAL/DATA TRẢ VỀ
+		TỰ ĐỘNG SO SÁNH VỚI EXPECTED, KẾT LUẬN GIÙM LUÔN ĐÚNG SAI 1 TÍNH NĂNG!!!
+		TEST AUTOMATION
+			(KATALON, SELENIUM, APPIUM, CYPRESS...)
+
+
+- Sếp của dân thánh soi: QC Manager, QC Lead/Leader | QC: Quality Control                                                                                                                                                                                
+	- Quản lí các công việc liên quan đến đảm bảo quá trình kiểm soát chất lương sản phẩm, quản lí các công việc liên quá trình tìm bug
+	- Lên kế hoạch về việc kiểm thử, lúc nào thì test app
+	- Phân bố nguồn lực vào việc kiểm thử: chia người, chia task, bố trí bao nhiêu người 
+						máy móc thiết bị dành cho việc test
+	
+	Giả sử cần Test app Bán hàng của siên thị GS25
+	Manager: - biết lộ trình phát triển App cảu bên Dev: tháng nào, sprint nào xog module nào
+		 - biết đc độ phức tạp của app cần test: thuật toán, xử lí, thiết bị, AI...
+		 - cần bao nhiêu người để kiểm thử App???
+						đồng thời App khác cũng cần đc bố trí kiểm thử
+		 - lên kế hoạch tìm hiểu/nghiên cứu bản thiết kế App, specification - mô tả reqs
+		   hiểu đc app xử lí làm gì -> phân chia người thiết kế kịch bản test/test cases
+						tưởng tượng sẵn các luồng đi của user khi xài app, xài thử theo
+						xem có lỗi ko
+						luồng đi -> gọi là test case, phân công người design
+							    luồng này 
+		 - mua thiết bị: máy đọc mã vạch, máy/cam nhận dạng gương mặt
+				 mới sử dụng đc trong các luồng xử lí của app
+ 
+	 LƯƠNG CAO/ỔN
+	 TRÁCH NHIỆM NẶNG NỀ: ĐÓNG DẤU CHẤT LƯỢNG SẢN PHẨM
+
+- END-USER (UAT - USER ACCEPTANCE TESTING)
+
+  MỞ NGOẶC: (SWR302) CUSTOMER 		VS. 	USER
+
+  Thầy HT ĐH FPT ----------------------------------- đặt hàng -------------------> FSort làm app FAP, EOS,  LMS...
+					(*)
+			  Thầy HT là k/h của FSort
+			  Thầy HT là customer của FSort                                                                                             
+  Giả bộ app FAP xong, bàn giao, đưa vào sử dụng ở FU
+  AI SẼ SỬ DỤNG FAP?
+	- Student: An Bình Cuong Dung		-> USER
+	- Lecturers: tui,...			-> USER
+	- Academic staff:...			-> USER
+
+	- Thầy HT!!! ko có account trong app FAP -> CUSTOMER CỦA FSOFT
+  CUSTOMER LÀ NGƯỜI ĐỀ RA Ý TƯỞNG LÀM APP
+  USER 	   LÀ NGƯỜI TRỰC TIẾP XÀI CÁC TÍNH NĂNG CỦA APP
+  
+  UAT : LÀ MỜI USER THỰC/THẬT XÀI APP CHO Ý KIẾN: DÙNG ĐC TRONG CÔNG VIỆC CỦA HỌ, HAY KO
+	> ĐÂY LÀ LOẠI KIỂM THỬ "QUAN TRỌNG NHẤT" ẢNH HƯƠNG ĐẾN VIỆC P/M ĐC SỬ DỤNG HẰNG NGÀY HAY KO!!!
+
+	"TIẾNG NÓI CỦA NGƯỜI DÙNG LÀ TỐI THƯỢNG!!!"
+  TÙY LOẠI APP:
+	APP KIỂU ĐẶT HÀNG: BV CHỢ RẪY đặt hàng FSoft làm app QLBV
+			   user: bác sĩ, y tá, tiếp tân, phòng xét nghiệm, phòng cấp cứu,  phòng dược
+
+ 	APP KIỂU PRODUCT, TA TỰ NGHĨ APP NÀY ĐƯA THIÊN HẠ XÀI ( trả tiền bản quyền)
+			   user là ai?
+			   Game FIFA: user là toàn thiên hạ
+
+						trial thiên hạ feedback giùm em
+4. KHI NÀO BẮT ĐẦU TIẾN HÀNH KIỂM THỬ CHẤT LƯỢNG P/M?
+- Càng sớm càng tốt, ngay cả khi chưa viết code!!!
+- Test ngay từ lúc lấy Reqs, test ngay cái design: DB, UI, Architecture,...
+
+* Ngoại truyện:
+   - Dân QC hiểu rõ app hơn dân Dev ở góc nhìn App chạy thế nào, các màn hình phụ thuộc 
+     nhau ra sao về data -> họ hiểu cái nghiệp vụ k/h (business) hiểu cách khách hàng làm
+     ăn, buôn bán, xử lí info ra sao!!!
+
+	-> chuyển hướng sang ĐI KHÁCH - BUSINESS ANALYST NHANH!!!
+	
+     IIBA BOK
+ 
+5. OOP: 4 + 5 (4 NGUYÊN LÍ CĂN BẢN OOP + 5: SOLID
+
+    TỔNG QUAN CHUNG VỀ CÁC GÓC NHÌN LÀM APP: 4 + 1 MODEL
+
+    SCRUM/AGILE: 4 (4 ĐIỀU TRONG AGILE MANIESTO)
+
+    SOFTWARE REQUIMENTS: 3 VIEWS    
+
+    TESTING: 7 (7 ĐỊNH LUẬT/ĐỊNH LÍ/NGUYÊN LÍ) CẦN NHỚ KHI LÀM NGHỀ KIỂM THỬ!!!
+    
+    Những điều(7) sẽ nói dưới đây coi nhu là định lí, tiên đề để định hướng việc kiểm thử của chúng ta
+    
+  5.1. Kiểm thử phần mềm ko phải là việc chúng minh, hay khẳng định, hay phải tuyên bố
+         phần mềm tui ko có lỗi - free of errors/defects
+
+         Hiểu ngược lại: phần mềm luôn có lỗi, còn lỗi, việc của kiểm thử/testing là tìm lỗi, (ko tìm hết đc)   
+	 - các công ty luôn đưa ra những quy trình để đảm bảo sp làm ra có chất lượng:
+				6 sigma, 5s, ISO, CMMI,..
+
+	KO CẦN CHỜ ĐẾN LÚC CÓ SP MỚI KIỂM THỬ, KIỂM THỬ TỪ RẤT RẤT SỚM!!!
+   
+ 5.2. Không thể test hết các tổ hợp sử dụng/tình huống sử dụng phần mềm của USÊR
+	 - khi ta bán phần mềm ra thị trường (product-base), 
+	 - khi ta bàn giao phần mềm theo đặt hàng (service-based, customized app, bespoke app)
+
+	 người dùng/user sẽ có n cách thức xài app
+	
+	dân kiểm thử/tester trước cái app theo cách/họ tưởng tượng cách mà user/người xài app sẽ xài
+	
+	tưởng tượng cách người dùng xài app, xài theo cách đó, coi có văng lỗi không!!!
+	sẽ tổ hợp cách xài app là vô chừng, do đó có tiền đề 2: ko thể test hếtt các xài của user với app
+
+	ví dụ: Test cái app Calculator của Windows
+	- Test trên tính năng dành cho người dùng thường Standard featutre
+											dân Programmer (các hệ cơ số)
+	- Xét riêng tính năng chuẩn (Standard)
+	 +: + - +- lộn xộn, cộng tiếp nối, tràn số, +-*/ kết hợp
+	
+	- ví dụ 2: Màn hình login = username/pass, hoặc username ko cần nhập, chỉ nhập pass
+	số tổ hợp cách sử dụng màn hình này ko nhiều, nhưng cx kha khá
+
+	- ko gõ user/pass -> nhấn login -> chửi
+	
+	- gõ đúng user, sai pass -> nhấn login -> chửi
+						-> chắc hẳn bạn quên pass -> reset!!!
+
+						-> sai nhiều lần quá, khóa tài khoản
+	
+	- gõ sai user, éo quan tâm pass
+						-> hiển thị nút Sign-up, Register
+
+	- đúng user, đúng pass   -> vào hệ thống
+					        -> máy khác, OTP (bảo mật 2 lớp, email, sms, app thứ 3, gọi điện đọc OTP)
+					        -> remember
+	CHƯA THÈM NÓI UI ĐÚNG CHUẨN LAYOUT, LOGO, ICON...
+	...
+	CHỐT DEAL: SỐ CÁCH DÙNG CALCULATOR LÀ VÔ HẠN, CỐ GẮNG TƯỞNG TƯỢNG RA CÁC TỔ HỢP SỬ DỤNG APP
+				 LÀ IMPOSSIBLE, DO ĐÓ PHẢI CÓ CÁCH ĐỂ KO TEST HẾT CÁC TỔ HỢP SỬ DỤNG MÀ VẪN
+				 DÁM KẾT LUẬN APP ỔN ĐỂ XÀI -> CHIÊU/TRICK/TIP/KĨ THUẬT NÀO ĐÓ
+
+	CHIÊU:
+
+
+5.3 EARLY TESTING: KIỂM THỬ CÀNG SỚM CÀNG TỐT, VÌ CÀNG VÀO GIAI ĐOẠN CODE, VIỆC SỬA APP CÀNG TỐN CHI PHÍ
+	NGAY TỪ KHI LẤY REQS ĐÃ CẦN TEST DOCUMENT RỒI, TEST THIẾT KẾ RỒI 
+
+	- k/h: app login = vân tay, võng mạc, gương mặt... -> tự hỏi cần thiết hay ko 
+	- 
+--------------------------------------------------------------------------------
+Ba Má dẫn ta/mình đến cửa hàng Yamaha để mua xe máy
+- Ba Má xuống tiền -> Ba Má là khách hàng của Yamaha. Customer người xuống tiền để có sản 
+  phẩm, con xe
+-				 Mình xài con xe BM mua -> mình là USER
+											Người trực tiếp xài sản phẩm
+- BM mua luôn con NVX -> đóng 2 vai: CUSTOMER, USER
+
+- GĐ BV Chợ Rẫy 			gọi 			FSoft đặt hàng app QLBV
+	GĐ BV, BV là CUSTOMER CỦA		FSoft								
+	Bác sĩ, y tá, điều dưỡng, tiếp tân xài APP -> USER của App mình viết!!!
+
+- Thầy HT ĐH FPT đặt hàng FSoft làm App FAP
+  Thầy HT, ĐH FPT là CUSTOMER của FSoft
+  GV, SV, PDT là người xài FAP -> USER
+
+ Thầy HT ko có account trong FAP!!! vì có những trợ lí giúp lấy data
+ Phong hạng cho giám đốc, sếp, thầy HT là admin, MẸ CHO ĂN ĐÒN!!!
+ 
+
+CUSTOMER:
+
+USER	     :
+--------------------------------------------------------------------------------
+
+5.4   Defect clustering - Sự phân bố hay tập trung của bug!!!
+
+	Lỗi thường sẽ xảy ra nhiều ở một số chỗ trong app -> Dân kiểm thử biết điều này
+	để tập trung lực/thời gian vào trong việc test chỗ này!!!
+	Ví dụ:
+
+	- Lỗi hay xảy ra ở chỗ tích hợp với app khác, module khác: tích hợp app mình với
+MoMo, gọi API FB, GG, Map,...
+
+	- CRUD truyền thống ít lỗi (nằm trong hệ thống nhà mình)
+	
+	- App PC Covid ra đời sau, trước đó là Sổ SKDT, BlueZone, App di chuyển nội địa...
+									việc chích ngừa
+	 App PC Covide ra đời thống nhất, gom data từ các nguồn app trước đó về 1 nơi chung
+		xảy ra hiện tượng data thất lạc... nhiều người chưa có MÀU XANH
+	
+	- Phần import từ Excel để tạo data nguồn cho app mới đang viết -> bug tring định dạng
+	  dữ liệu nhập vào hệ thống
+	
+	NGUYÊN LÍ PARETO 80/20, có cuốn sách nguyên lí 80/20 để quản trị cuộc đời
+
+5.5 Pesticide paradox: nghịch lí thuốc trừ sâu, hiện tượng "lờn" thuốc
+	"kháng" thuốc
+	- chủ quan, quen việc test của dân kiểm thử, test mãi 1 cái app
+	  -> dẫn đến bỏ sót bug
+	  mời bạn vào đảm bảo chất lượng p/m, bạn lại để bug to xuất
+
+	- Nên thay đổi project cần test, module cần test, môi trường app
+	nay test mobile, mai test web tránh nhàm chán, thêm mới mẻ trong cv
+ 
+5.6 Kiểm thử phụ thuộc ngữ cảnh
+	- các loại app khác nhau, môi trường chạy app khác nhau, thì phải có
+	phương pháp kiểm thử khác nhau, cách thức kiểm thử khác nhau
+
+	- app chạy đa nền khác app hỗ trợ 1 platform
+			nhiều OS 
+
+	- responsive  là 1 dạng test khi app chạy trên màn hình to/nhỏ
+	- tính tương thích của thiết bị: in bill loại giấy, loại máy in
+	- IoT cần có thể môi trường giả lập (có thể) hoặc ra thực địa
+	  để xem app chạy thế nào!!!
+	
+ 5.7 Ảo tưởng về việc app hết lỗi!!! 
+	Vỗ ngực app ngon, hết lỗi (sai), ít lỗi, app tao chất lượng
+	Câu này ko đủ
+	Viết làm app chất lượng là DEFAULT, BÁN HÀNG PHẢI BÁN HÀNG CÓ CL
+
+	Chuyện quan trọng hơn phải là: APP TAO BẮT TREND, APP TUI ĐC K/H
+	YÊU THÍCH, ĐC KHÁCH HÀNG ĐỀ XUẤT CHO AI ĐÓ, APP TUI CÓ LƯỢNG
+	USER/CUSTOMER ĐÔNG ĐẢO
+	
+	Mục tiêu tối thượng của làm app: app làm user/customer hài lòng
+		(UX và Quality), vỗ ngực chất lượng ko đủ!!!
+
+	REQUIREMENTS PHẢI CHUẨN TRONG HẾT MỨC KHẢ NĂNG!!!
+==================================================================
+[Mở ngoặc: thực sự việc kiểm thử phần mềm phải đc tiến hành sớm hơn, ko chờ đến giai 
+đoạn viết code, test ngay ở giai đoạn reqs, NGUYÊN LÍ EARLY TESTING]
+
+TESTING LEVEL: là cách phân chia công việc test, tiến hành công việc kiểm thử chất 
+lượng phần mềm dựa trên tiến trình hoàn thiện code, hoàn thiện app
+chia 4 mức độ/4 giai đoạn kiểm thử app dựa trên việc viết code, việc hoàn thiện code
+1. UNIT TEST/TESTING
+- Unit: đơn vị code, có thể xem 1 hàm, 1 class là 1 đơn vị code cơ bản
+  Developer sẽ là phải là gã có trách nhiệm đảm bảo rằng hàm/class của mình ngon!!!
+  ngon cho chính mình sử dụng, ngon cho người khác sử dụng (làm việc nhóm/dự án)
+  Thế nào là code ngon, ổn - chắc chắn phải kiểm thử, DEVELOPER PHỈA TEST CODE CỦA MÌNH, TEST HÀM, METHOD, CLASS
+  Làm sao test code của mình, chỉ em cách làm/kĩ thuật đi!!!
+  - Mở code ra đọc
+  - Chạy thử code
+	- chạy = cách gọi hàm ở trong main()
+	- In ra trang web, hoặc windows form, hoặc ghi là LOG file (.txt)
+	
+	2 cách này đều ổn cả, nhưng bị 1 vấn đề:
+	   - nếu ta có nhiều hàm cần test thì sao? code chạy thử hàm cx dài dài
+	   - mắt ta phải nhìn các OUTPUT trả về của hàm (ACTUAL)
+					ta tự so sánh (= suy luận của ta) với cái ta nghĩ
+					rằng app phải trả ra thế này (EXPECTED)
+	  máy, ngôn ngữ lập trình dư sức so sánh 2 giá trị bất kì
+	  nếu để mắt mắt và não bộ phỉa suy nghĩ, tự so sánh expected và actual của hàm
+	  ko tận dụng đc ưu thế của NNLT
+
+	  -> cảm hứng để đề xuất 1 kĩ thuật kiểm thử hàm, class hiệu quả hơn
+	      ko cần dùng sức người so sánh EX và ACT, viết 1 đoạn code nho nhỏ
+	      so sánh giùm tao EX và ACT, nếu == nhau, thì báo, ko == nhau cx cảnh báo
+
+	  - nếu có quá nhiều cặp EX và ACT cần so sánh, thì máy ơi, tự so sánh cả đám
+	    giùm, kết luận chung giùm tao:
+			- tất cả có đúng hay ko, thằng nào bị sai báo tao!!!
+
+	   Trong giang hồ, có những nhóm developer người ta viết sẵn cho mình những
+	    bộ thư viện/framework giúp ta so sánh cả đám EX và ACT 1 cách hiệu quả
+	    Ứng với mỗi NNLT, đều có bộ thư viện tương ứng để giúp dân DEV kiểm soát
+	    hàm mình viết có tốt với tất cả/đa số các tình huống xài hàm hay ko!!!
+
+	    thư viện này giúp so sánh 1 loạt các EX với ACT tương ứng khi xài hàm
+	    sau đó kết luận chung giùm luôn!!!		Hàm ổn hay ko. Mắt mình chỉ cần nhìn
+	    2 tín hiệu: ỔN hay Ko, cho cả đám value cần so sánh!!!
+
+	    Thư viện này viết phải theo đúng quy tắc, ko viết tự do kiểu như jdbc.jar
+	    mà phải viết đúng trình tự yêu cầu
+	    các thư viện mà để ta tự do sử dụng hàm -> LIBRARY mà hoy
+	    các thư viện mà ép ta viết theo 1 trình tự nào đó -> FRAMEWORK
+				(có khung nào đó, ta chỉ điền code vào những chỗ quy ước!!!)
+	    
+	    Thư viện dùng để test các hàm của ta theo mô tả ở trên đc gọi là
+	    Unit Test Framework, với mỗi NNLT khác nhau có Unit Test framework khác
+nhau!!!!
+	   
+	     BÀI THUYẾT TRÌNH NHÓM - BÀI SỐ 1: CHỌN 1 UNIT TEST FRAMEWORK và demo nó
+	     trong App môn SWP391
+		
+	     Java    : JUnit (*), TestNG	
+	     C#      : NUnit, MSUnit Test, (*)xUnit...
+	     JS       :
+	     Python:
+
+Dùng JUnit để test code của mình, các hàm của mình, các class của mình
+		chưa quan tâm UI, mức UNIT TEST, DEVELOPER PHẢI LÀM VIỆC NÀY
+
+NetBeans viết code: 8.2 -> JUnit 4x
+			      13.9 -> JUnit 5x, cách viết khác 1 chút so với 4x
+					 độ: chơi thử 4x
+
+	*	UNIT TEST: DEVELOPER phỉa có trách nhiệm đảm bảo chất lượng của các hàm, các class do mình viết ra
+				    hàm nhận đầu vào, xử lí, ra kết quả ACTUAL khớp với EXPECTED
+
+				    ĐẢM BẢO CHẤT LƯỢNG CODE  = CÁCH
+				    - kĩ thuật TRÂU BÒ: main(), log file, pop-up, window form, web page
+				      DÙNG MẮT LUẬN ĐÚNG SAI TRÊN RẤT NHIỀU CASE VÀ TỪNG CASE - tình huống xài hàm
+				    
+				    - kĩ thuật xịn sò: TEST AUTOMATION/ VIẾT CODE TEST ĐỂ TEST CODE CHÍNH
+											xài dùng một framework/bộ thư viện viết đoạn code ngắn
+											gọi hàm cần test, viết code này cho các case xài hàm
+																				tình huống xài hàm
+	
+									SAU ĐÓ KẾT LUẬN CHUNG CHO MỌI CASE 1 CÁCH TỰ ĐỘNG
+									MẮT LÚC NÀY CHỈ NHÌN 2 MÀU XANH ĐỎ CHO TẤT CẢ CÁC CASES
+												
+	* CÁCH LUẬN XANH ĐỎ/QUY ƯỚC XANH ĐỎ CỦA UNIT TEST NÓI CHUNG, JUNIT NÓI RIÊNG
+	- Bạn liệt kê ra các case cần test - hàm cần test có những tình huống nào để xài - các đầu vào là gì!!!
+							 - liệt kê các đầu vào cần test cho hàm, tính trước các expected	
+	- viết code để test code cho các case - gọi hàm với các đầu vào đã liệt kê!!!
+	- RUN
+		- Nếu TẤT CẢ các case đều ngon - EXPECTED == ACTUAL, MÀU XANH CHO TẤT CẢ	(mệnh đề AND)
+		- NẾU CÓ ÍT NHẤT 1 case tạch - EXPECTED != ACTUAL cho ít nhất 1 case - 1 MÀU ĐỎ CHO TẤT CẢ!!!
+
+	NGHỆ THUẬT ĐẢM BẢO CHẤT LƯỢNG CODE CỦA DÂN DEV, DÂN QC/TESTER
+	-  cố gắng tưởng tượng, liệt kê ra các CASE sử dụng app, sử dụng hàm 1 CÁCH BAO QUÁT, BAO SÂN TỐT NHẤT
+	   CÁC TÌNH HUỐNG!!!, CẦN XANH CHO TẤT CẢ CÁC CASE ĐÃ LIỆT KÊ
+
+	- Liệt kê thiết sót case, chuyện lớn kiểu khác
+	- Đã đưa ra các case, chúng phải XANH HẾT!!!
+
+	ĐỎ: Đỏ bao gồm 2 nguyên nhân (đỏ: actual khác expected)
+
+		1. Mình code sai giá trị trả về!!! chiếm số nhiều
+		2. Mình kì vọng sai - tính = tay khi chưa có hàm/app bị sai!!!
+
+	TDD, DDT, CI (CD/DevOps)
+	
+	Chuẩn bị sẵn Github account (đăng kí miễn phí dùng mail cá nhân)
+	url cho đẹp, có ý nghĩa: github.com/dont-wait
+	dowload tool để chơi Github: gõ google keyword: git scm download
+	để tôi chỉ cách cài!!!
+	
+	JDK, .NET FW -> Cài ổ C: 
+	- Đặt biến môi trường, tạo mới: JAVA_HOME C:\... nơi cài JDK, đuòng dẫn gồm cả tên thư mục JDK
+										  ...\jdk-18...
+											vào thư mục này thì phải thấy thư mục bin
+											mới là đúng
+	- Thư mục chứa project/code CẤM TUYỆT ĐỐI DÙNG TIẾNG VIỆT, DẤU CÁCH, KÍ TỰ ĐẶC BIỆT KHÁC
+	, các compiler dị ứng với unicode
+	
+	 D:\Source\swt\math-util ->okie
+	 D:\chuyên-ngành\swt\math-utill -> nước biển mặn
+	
+	KĨ THUẬT DDT KHI CHƠI VỚI UNIT TEST
+	DDT viết tắt của: DATA-DRIVEN TESTING - kĩ thuật kiểm thử hướng theo tập data chuẩn bị sẵn
+
+	là kĩ thuật tách lời gọi hàm cần test ra 1 chỗ
+					data dầu vào và expected ra 1 chỗ khác
+					nhồi/nạp/feed đám data này vào lời gọi hàm
+			giúp:
+					nhìn code test dễ dàng, trong sáng, tách biệt việc chuẩn bị data
+					ra 1 chỗ -> ta dễ tập trung trong việc build bộ data test
+							 ko bị trộn với code test đám data này
+					vì việc kiểm thử đòi hỏi tính chặt chẽ, cẩn thận
+					code			để test code cũng cần phải đẹp, chuẩn, dễ bảo trì
+					JUnit code á
+	Trong giới công nghiệp/các cty p/m, tập data test để ở:
+	- trong file Excel theo hàng cột
+	- trong text file (dùng tab để phân tách giá trị) dạng CSV
+	- nhúng trực tiếp trong code, nhưng tách so với code JUnit Test
+	- để trong table của dataabase chứa toàn data để test, ko phải là database của app
+	
+	Phân tích bài test hàm tính giai thừa
+	
+	Input (n)		Expected (n!)
+		0			1
+
+		1			1
+
+		2			2
+
+		3			6
+
+		4			24
+
+		5			120
+
+		6			720
+	[7][2]
+		
+		Assert.assertEqual(expected, .getF(input));	//tập data cần verify đặt thành các biến
+										//feed các biến vào code JUnit/Unit Test
+				Kĩ thuật DDT
+					trong sáng, dễ hiểu, dễ đánh giá đc thiếu case hay ko, tình huống xài
+					hàm đã có đủ đại diện chưa!!!
+		Chốt deal: DDT chẳng qua là tách tập data test ra 1 chỗ, đặt cho chúng thành các biế
+				tương ứng, rồi đưa biến vào hàm test!!!
+				DDT còn đc gọi 1 tên mới: KIỂM THỬ UNIT TEST KIỂ THAM SỐ HOÁ
+									 PARAMETERIZED - tham số hoá tập data test
+
+		Assert.assertEqual(1, .getF(0));
+		Assert.assertEqual(1, .getF(1));
+		Assert.assertEqual(720, .getF(6)); truyền thống
+	
+	Unit Test FW thường có: 
+	- nhóm hàm assertX() để so sánh expected và actual
+	- nhóm hàm bắt ngoại lệ coi có xuất hiện ngoại lệ xh sẽ là màu đỏ nhưng nếu kiểm soát nó, thì là xanh
+	- tách data và câu lệnh test hàm ra riêng biệt DDT
+	- chạy song song các test cases
+	- gài ràng buộc (dependency) giữa các test casse, ví dụ login thành công thì mới CRUD
+		nếu test case login thành công -> chạy mấy test case sau login
+					    thất bại -> những test case sau login vô nghĩa
+	- generate ra các report/báo cáo/bản thống kê code lỗi ở những test case nào
+	- chạy ở chế độ console/command line (giống chạy Ant có chạy test luôn) - Test Runner
+	- generate luôn giùm các test cases để ta chỉ việc modify thay vì phải viết từ đầu như mấy bữa nay
+
+GITHUB và CI - Continous Integraiton
+				TDD Unit Test, DDT
+
+Linus Torvalds
+
+UNIX -> MacOS
+	      Linux, open-source
+			RedHat, Debian, Fedora, Uuntu, Kali,...
+	      Git (kĩ thuật, công nghệ phần mềm quản lí source)
+			open-source	
+			
+			  GitHub, GitLab, BitBucket cung cấp giải pháp lưu trữ code online
+												quản lí code online
+				miễn phí và có trả tiền theo dung lượng lưu trữ, số member tham 
+				gia vào dự án có luu code ỏ trên 3 nền tảng này
+		Quản lí code:
+			- lưu trữ code (Drive.. cx làm đc)
+			- share code cho mọi người cùng tham gia sửa (Drive...cx làm đc)
+			- Tracking history chỉnh sửa code - quản lí các phiên bản code - version của code
+									    - quản lí sự thay đổi của các dong code
+									    - ai thêm code, thêm ngày giờ nào,
+									      dòng code nào? (Drive..bó tay)
+			- Undo lại code kể từ ngày đầu tiên đoạn lưng chừng (Drive..bó tay)
+			- Anh em đè code lẫn nhau, do sơ ý, do cùng làm trên 1 project, 1 tập tin xoá lộn code
+							của nhau, cả 2 cùng update trên 1 tập tin -> CONFLICT (Drive... bó tay)
+			- Đồng bộ code của anh em khác, merge code của anh em khác
+							tao là FE máy tao
+							mày làm BE máy mày
+							gộp lại thành project chung, tao mày đêu có ở máy riêng
+								(Drive... bó tay)
+			- Copy/paste project để thí nghiệm thử, sau đó đc thì xài, ko thì xoá
+						trước giờ làm thủ công ở local/máy tính -> Drive... ko làm đc
+
+			TẤT CẢ NHỮNG VẪN ĐÊ TRÊN, GIT LO ĐC HẾT!!!
+
+			Toàn bộ những vấn đề nêu trên cần tool nào đó để quản lí thì tuyệt vời cho dân DEV
+			tiết kiệm cực nhiều công sức cho việc quản lí sự thay đổi trong code khi làm việc teamwork
+			-> các tool làm việc này gọi chụng là: VCS: Version Control System
+										SCM: Source Code Management System	vd: SCM: GitHub
+			Tool công nghệ cũ: SVN( Subversion)
+							Source Safe
+			Tool công nghệ mới: Git
+									và phiên bản implement để xài: GitHub, GitLab, BitBucket
+																(MS)	
+		Mô hinh hoạt động Git/ GitHub/...
+
+		Máy dev (locacl workspace)			GitHub server (cloud, trên mạng)
+											GitLab server (cloud, trên mạng)
+														...
+
+					--------------------> đẩy code lên server - check-in thuật ngữ chung SCM
+													push thuật ngữ riêng cho Git
+		down code về<-------------------- check-out thuật ngữ chung SCM
+									git clone
+									git pull			lệnh của Git
+
+
+		Máy dev khác (local workspace)		GitHub server (cloud, trên mạng)
+											GitLab server (cloud, trên mạng)
+														...
+
+					--------------------> đẩy code lên server - check-in thuật ngữ chung SCM
+													push thuật ngữ riêng cho Git
+		down code về<-------------------- check-out thuật ngữ chung SCM
+									git clone
+									git pull			lệnh của Git
+
+* Code để ở trên Server GitHub/GitLab sẽ được đặt trong 1 folder - chính là tên folder
+   chứa code ở local. Folder chứa code/project/.solution trên server GitHub đc gọi tên là
+  REPOSITORY/REPO - KHO CODE
+
+  Mỗi project tương ứng 1 kho
+ Lưu ý: TÊN KHO NÊN (RẤT NÊN) TRÙNG 100% CẢ HOA THƯỜNG VỚI THƯ MỤC CHỨA CODE
+		PROJECT CHỨA CODE Ở LOCAL
+
+CÁCH CHƠI GITHUB
+1. Tạo trên server 1 kho trùng tên (100% hoa thường với tên project ở local)
+git pull = git fetch + git merge
+git merge (original main/branch)
+git conflict
+git checkout branch/commit
+
+git init //khởi động cái thư mục code ở local, chuẩn bị sẵn sàng đồng bộ lên server
+	    //tự tạo ra 1 folder .git\ẩn. chứa nhật kí thay đổi code ở local
+	   //cấm tuyệt đối xoá, sửa thư mục này, xem okie
+
+git add .  //lệnh này báo với git rằng tao cần upload tất cả các  tập tin/folder trong
+		 //local lên server
+		 //lên server hết trơn, kể cả thằng có dấu .
+		 //dĩ nhiên ko lên những thằng có tên trong git ignore
+
+git add * //lệnh này báo với git rằng tao cần upload tất cả các  tập tin/folder trong
+		 //local lên server; để lại những thằng
+		 //có trong .gitignore, và những thằng trong tên gọi có dấu . ở đầu tên
+		 //những tập tin tên gọi xuất phát là dấu . thì ở lại local lun
+git commit -m "thông-báo-cho-team-biết-mình-update-gì-trong-kho-chung-trên-server"
+
+lưu ý khi đi thực tập
+mỗi lần đưa code lên server phải ghi rõ lí do, thường là câu ngắn tóm tắt lại lần 
+mình update code, cấm ghi "Ahihi" "Test"
+
+git bracnch -M main báo với git vào room-phòng chính chứa project ở local lấy code
+===============================================================
+NHẬP MÔN CI - CONTINOUS INTEGRATION - TÍCH HỢP LIÊN TỤC
+
+Là kĩ thuật đảm bảo chất lượng code của cả TEAM, ko riêng của cá nhân
+Vì code của dự  án là do sự đóng góp của nhiều thành team member, 1 dự án có nhiều dev cùng 
+code
+Mỗi dev phải đảm bảo code mình ngon!!!
+và phải đảm bảo code mình cùng chung sống với code bạn trong cùng project cũng ngon
+cả dự á code phải ngon, cả dự án phải màu XANH mới ổn
+XANH trên tất cả code của ae dev team gom về server
+CODE TRÊN SERVER PHẢI XANH CHO TẤT CẢ!!!
+CI là kĩ thuật gom code của anh em lên server phải đảm bảo XANH cho tất cả khi gom
+			(INTEGRATION - TÍCH HỢP)
+việc gom này diễn ra rất nhiều lần do code kéo dài thời gian cả tháng, cả năm, n người cùng
+làm -> việc kiểm tra XANH cho tất cả phải làm LIÊN TỤC LIÊN TỤC LIÊN TỤC
+- TÍCH HỢP LIÊN TỤC XUẤT HIỆN: TIẾN HÀNH KIỂM TRA CODE TOÀN DỰ ÁN LA MÀU XANH
+							     DIỄN RA LIÊN TỤC LIÊN TỤC KHI SERVER ĐC AI ĐÓ DEV
+							     NÀO ĐÓ CHỈNH SỬA CODE
+nói cách khác: mỗi lần ai sửa code/update code lên server, MÀU XANH cho tất cả đc chạy
+ngay, kích hoạt ngay tiến trình kiểm tra XANH khi code server bị thay đổi
+
+- Muốn làm CI cần:
+	- Source code của các anh em (dự án mà)
+	- Server chứa code để gom code
+	- Unit Test cho toàn dự án để có XANH ĐỎ
+	- Kích hoạt quy trình chạy Unit Test khi có bất ki gã dev nào sửa code trên server
+	- Notify đc XANH ĐỎ tới team member khi có problem ĐỎ
+	- Tự động việc làm ở trên, ko chạy = cơm
+			ta cấu hinh server và những thứ liên quan để tạo quy trình XANH ĐỎ 1 cách tự
+động
+	Rẽ nhánh đi làm: CI/CD/DevOps ko code app, code cho quy trình XANH ĐỎ, deploy lên
+server - 									khai báo các hành động để
+										từ code -> chất lượng code-> app
+										-> lên server luôn
+
+CI Tool: là phần mềm làng nghe server code, coi có ai cập nhật code hok
+		nếu có, nó sẽ kích hoạt chạy bộ Unit Test, kiểm tra xanh đỏ
+		XANH -> ko vấn đề
+		Đỏ       -> tự động gủi mail chửi tay dev vừa đưa code lên
+		Lặp lại liên tục  quá trình này -> Continous Integration
+
+Ngày xưa, GitHub chỉ làm vai trò server code
+		phần CI để cho tool khác cho: JENKINS, CIRCLE CI, TEAM CITY, BAMBOO CI,,...
+Ngày nay, GitHub tích hợp lun tool lắng nghe vào trong GitHub, gọi là GitHub Actions
+
+-----------------------------------
+NETBEAN 8. mặc định khi tạo project, tạo UnitTest, clean &build nó ko chạy bộ Unit Test để kiểm tra xanh đỏ
+-			dù gọi trực tiếp clean &  build trong NB hay gọi ở cửa sổ cmd bằng lệnh ANT
+			Muốn NB 8.0 khi đóng gói app chạy bộ Test trước khi đóng gói (.jar, .war)
+			ta phải độ lại tập tin build-impl.xml bằng cách gọi lệnh test trong tập lên .xml này
+			mở file tìm dòng 1005, bổ sung thêm (NETBEAN 13. 1205)
+			
+			<target depends="init,compile,
+			<target depends="init,compile,test,
+			NB 13 ko cần làm, mặc định ANT sẽ chạy test ở cmd
+						    nhưng vẫn cần chỉnh sửa ở trong file này khi clean & build trong NB	
+Tất cả các CI Tool đều hoạt động dựa trên nguyên tắc
+	- nó có 1 tập lệnh cấu hình sẵn, mình lựa chọn thao tác muốn dùng
+	- ví dụ: yêu cầu GitHub báo cho tool biết ai vừa sửa code
+			kích hoạt bộ lệnh gom code về máy server nào đó
+			gọi người kiến ANT biên dịch code đã gom, sau đó chạy test, ổn đóng gói .JAR .WAR
+											ko ổn chửi
+	- lệnh ko hà
+		- lệnh qua UI, click các option
+		- gõ lệnh trong tập kịch bán, có đuôi mở rộng là .YML .YAML (dza-mồ)
+
+------------------
+CHƠI CI VỚI GITHUB ACTION
+- Tạo tập lẹnh - script - file .yml lưu kèm với project để sau đó cứ ai sửa code, file này đc chạy và XANH ĐỎ
+	xuất hiện
+- Vấn đề là: Java Project thì có nhiều style bố trí code khác nhau (code giống nhau - thư mục chứa code
+												khác nhau)
+										- ANT
+										- MAVEN
+										- GRADLE
+FILE .YML  cunghx phải viết khác nhau chút đỉnh liên quan đến style bố trí code
+
+
+
+
+-----------------------------------
+
+
+
+2. INTEGRATION TEST
+
+3. SYSTEM TEST
+
+4. UAT (USER ACCECPTANCE TESTING)
