@@ -1,0 +1,130 @@
+
+
+=============================================
+GIẢI NGỐ WEB API
+I. ĐỊNH NGHĨA WEB API
+* Web API là gì?
+- Nôm na: là 1 hàm/method(phải trả về 1 kết quả nào đó) mà ta gọi nó, chạm 
+đến nó qua 1 cái URL
+	- Gọi Web API, dùng Web API là phải gọi nó qua 1 URL
+	- Gọi hàm truyền thống
+			import package...Tên Class;
+			Khai báo biến object = new Tên-class(...);
+			Biến-oject-gọi-tên-hàm-method()-> nhận giá trị trả về
+	- Gọi Web API:
+			đưa chuỗi URL vào 1 object nào đó...
+			nhận giá trị trả về khi URL đc thực thi
+			     giá trị trả về THƯỜNG LÀ DATA THÔ, KO LÀ TRANG
+					    WEB ĐẸP ĐẼ
+			     giá trị trả về của Web API là data thô dạng: XML, JSon
+2. AI XÀI WEB API???
+CÓ 2 LOẠI URL
+* URL QUEN THUỘC HTTPS://ABC.COM
+  URL QUEN THUỘC NÀY SẼ ĐƯỢC DÙNG QUA TRÌNH DUYỆT, ĐƯỢC DÂN THƯỜNG
+  END-USER XÀI -> LƯỚT WEB
+* URL API-WEB API HTTPS://....
+  DÀNH CHO LẬP TRÌNH VIÊN XÀI, TỨC LÀ ĐƯA URL VÀO TRONG CODE(KO PHẢI TRÌNH DUYỆT)
+  LẤY DATA THÔ TRẢ VỀ TRONG CODE-JSON->TA VIẾT NỐT PHẦN RENDER RA TRANG WEB
+  RA APP ANDROID, IOS
+  URL NÀY ĐẶC BIỆT, KO TRẢ VỀ TRANG WEB ĐẸP ĐẼ- MÀ TRẢ VỀ DATA THÔ
+  GỌI TÊN KHÁC LÀ: END-POINT
+
+3.VÍ DỤ:
+
+4. KHI NÀO DÙNG? TẠI SAO CẦN WEB API?
+
+II ĐỂ CÓ ĐƯỢC WEB API ĐEM DÙNG, TA LÀM NHƯ THẾ NÀO, CẦN GÌ ĐỂ TẠO RA ĐC 1 WEB API???
+1.VÌ NÓ CÓ URL ĐỂ GỌI WEB API, DO ĐÓ TA CÓ THỂ XEM WEB API NHƯ LÀ 1 WEB APP ĐẶC BIỆT DÀNH 
+RIÊNG CHO DÂN DEV!!!->DÂN DEV DÙNG WEB API APP ĐỂ TẠO RA APP CHO USER 
+THƯỜNG SÀI!!!
+->CẦN 1 WEB SERVER ĐỂ NHẬN REQUEST/HTTP REQUEST VÀ REPONSE/PHẢN HỒI
+IIS, Glassfish, JBoss, WebShere, Apache HTTP Server, Nginx, Tomcat
+
+2.CẦN TẠO 1 WEB APP, THAY VÌ TRẢ VỀ CÁC TRANG WEB ĐẸP ĐẼ, TA TRẢ VỀ DATA THÔ
+  DẠNG JSON
+  1 WEB TA LÀM GỒM 2 PHẦN ĐC LUÔN: TRANG WEB ĐẸP CHO USER THƯỜNG
+				   WEB API CUNG CẤP CÁC HÀM CRUD DATA
+  TA PHẢI VIÉT CODE CHO PHẦN URL GỌI TỪ XA TRẢ VỀ JSON
+ - CẦN CÓ CÁC BỘ THƯ VIỆN/FRAMEWỎK ĐỂ NHẬN REQUEST/TRẢ VỀ RESPONSE DẠNG
+XML/JSON
+      RESTFUL API/REST API ----------JERSEY
+         chuẩn quy ước		      dependency ta xài để viết API
+	 nhận trả data		      đồ chơi hiện thực hoá cái web API
+       động cơ 4 thì nói chung	      động cơ Yamaha, Honda
+
+3. CẦN DATABASE, VÍ DỤ MYSQL, SQLSERVER, NO-SQL CHỨA DATA, SẼ ĐƯỢC THAO TÁC CRUD 
+   BỞI CÁC WEB API
+---------------------------------------------------
+1.CÀI ĐẶT CẤU HÌNH TOMCAT TRÊN SERVER/HOSTING/MÁY TA THUÊ ĐỂ PHỤC VỤ CỘNG ĐỒNG XÀI WEB
+APP DO TA VIẾT, XÀI API CỦA TA
+- XÀI Tomcat 10.x
+khác Tomcat 8.x ở chỗ: package lõi về xử lí request/response đã đổi tên
+   từ: import javax THÀNH: impor jakarta
+                 JAVA EE       JAKARTA EE
+	           ENTERPRISE EDITION
+		(PHHIÊN BẢN JAVA, JAVA DÀNH CHO CÁC DOANH NGHIỆP)
+
+-MacOS, Linus: chmod 777 thư-mục (r-w-x)
+				   000 0
+				   100 4
+   				   111 7
+- Xả nén thư mục vào C:\Program Files\Tomcat-10.0.27-> cấp quyền cho User dang
+login
+- CẤU HÌNH USER ADMIN QUẢN LÍ TOMCAT, CẤU HÌNH PORT CỔNG KẾT NỐI TỚI TOMCAT
+
+---------------------------------------------
+GIẢI NGỐ VỀ PORT/CỔNG TRONG APP
+Bạn gửi thư qua bưu điện cho tui, nhà tui ở 1 Lê Lợi Q1
+	thư bỏ vào trong 1 phong bì trên phong bì có ghi địa chỉ/thông tin người nhận là tui
+			MESSAGE-PHONG THƯ
+
+Bạn ----------gửi thư----bưu điện-------------Nhà của ba tui mà tui đang ở ké
+		phong bì ghi:		      có ba, mẹ, a2,  c2, tui-gl
+		giáo.làng 1Lê Lợi Q1	      Địa chỉ:1 Lê Lợi, Q1
+		địa chỉ & người nhận	
+			  phân biệt nhiều người ở trong cùng nhà, cùng địa chỉ
+
+Tui/Bạn duyệt web mua hàng, tui bạn gửi những message điện tử tới server chứa hàng hoá
+
+Tui....gửi request/msh-------url--------mạng internet--------shop/cửa hàng online
+			   www.thegioididong.com		203.5.10.10
+			   www.fptshop.com.vn			203.5.20.20
+			   địa chỉ và người nhận???
+			  đằng sau www. là 1 con số
+			  gọi là địa chỉ IP: 203.5.10.10 ~ 1 LÊ LỢI
+							203.5.10.10 là 1 máy server/rất mạnh
+							nhận request/response
+							có cài đc n app trên đây/thực hiện n việc 
+							Tomcat		8080
+							SQL Server	1433
+							mySQL		3306
+							FTP Server	21
+							Mail Server	110.25
+
+ai đó muốn giao tiếp với server, 
+cũng giống như bạn gửi info/mail cho tớ
+cái phong thư khi giao tiếp PHẢI GỒM
+- GỬI TỚI ĐỊA CHỈ NÀO			số nhà		địa chỉ IP
+- GỬI TỚI CHO AI TRONG ĐỊA CHỈ ĐÓ	người nhận
+
+QUY ƯỚC: CÁC APP TRÊN SERVER DÙNG PHỤC VỤ REQUEST BÁ TÁNH PHẢI ĐẶT 1 NICK-NAME
+NICH-NAME LÀ CON SỐ CHO DỄ XỬ LÍ ~~~ TÊN NGƯỜI NHẬN TRONG CÙNG NHÀ
+PORT LÀ SỐ TỰ NHIÊN ĐẶT NICK NAME CHO 1 APP CHẠY TRÊN SERVER ĐỂ LÁT HỒI REQUEST ĐẾN
+BAO GỒM IP:PORT THÌ OS SẼ BIẾT ĐƯỜNG ĐẨY LÁ THƯ MSG CHO ĐÚNG CÁI APP
+	BA ĐƯA PHONG THƯ CHO MÌNH - PORT
+
+PORT LÀ CON SỐ TỰ NHIÊN 2 BYTE:		00000000 00000000
+				 	00000000 00000001
+					00000000 00000010
+					00000000 00000011
+					...
+					11111111 11111111 65535
+
+số tổ hợp 010101 của 16bit là: 2^16 = 65536
+GIANG HỒ QUY ƯỚC: PORT TỪ 0...1024 DÀNH RIÊNG CHO CÁC APP NỔI TIẾNG TỪ THỜI BẮT ĐẦU
+CÓ INTERNET
+CHÚNG TA, DÂN DEV TỰ ĐỘ, TỰ XÀI CÁC PORT TỪ 1025 TRỞ LÊN, NÉ LUÔN CÁC PORT NỔI TIẾNG
+KHÁC VƯỢT 1025, VÍ DỤ SQL SERVER DÙNG 1433
+
+TOMCAT CHO PHÉP TA ĐỘI PORT MẶC ĐỊNH 8080 THÀNH PORT NÀO MÌNH MUỐN, NẰM TRONG TẬP TIN
+LÀ SERVER.XML CỦA THƯ MỤC CONF\
