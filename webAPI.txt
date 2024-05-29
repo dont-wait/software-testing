@@ -54,6 +54,13 @@ XML/JSON
 
 3. CẦN DATABASE, VÍ DỤ MYSQL, SQLSERVER, NO-SQL CHỨA DATA, SẼ ĐƯỢC THAO TÁC CRUD 
    BỞI CÁC WEB API
+
+4. CẦN 1 TOOL CÔNG CỤ KIỂM THỬ XEM API CHẠY ĐÚNG HAY SAI 
+   API TESTING TOOL
+   - Postman(nổi tiếng), SOAPUI(nổi tiếng)
+   - SwaggerUI (document cho API nhưng kèm thêm phần kiểm thử API mức cơ bản
+   - CURL(terminal/cmd)
+   - Browser(cơ bản nào đó)
 ---------------------------------------------------
 1.CÀI ĐẶT CẤU HÌNH TOMCAT TRÊN SERVER/HOSTING/MÁY TA THUÊ ĐỂ PHỤC VỤ CỘNG ĐỒNG XÀI WEB
 APP DO TA VIẾT, XÀI API CỦA TA
@@ -128,3 +135,126 @@ KHÁC VƯỢT 1025, VÍ DỤ SQL SERVER DÙNG 1433
 
 TOMCAT CHO PHÉP TA ĐỘI PORT MẶC ĐỊNH 8080 THÀNH PORT NÀO MÌNH MUỐN, NẰM TRONG TẬP TIN
 LÀ SERVER.XML CỦA THƯ MỤC CONF\
+
+2. VIẾT CODE API -CŨNG/CÙNG XÀI CHUNG WEB-PROJECT CỦA MÔN JAVA-WEB
+*TẠO MAVEN PROJECT/WEB APP
+*DEPENDENCIES
+  ******* JakartaEE(bản nâng cấp của Java EE - đổi tên khoảng 3 năm nay
+		 EE: Enterprise Edition - phien bản java dành cho doanh nghiệp
+					- Cung cấp rất nhiều API/Class/THư viện/hàm dùng cho lập trình
+					- những App, Web APP đồ sộ cho doanh nghiệp
+
+mvnrepository.com -> "jakarta" ->version 10
+
+*******************Jersey Container Servlet
+		   .jars chứa các Servlet dùng để đón nhận các URL thuộc về Web API, url đặc biệt thay vì
+			trả ra html thì trả ra JSON. Nó chạy xong hành bên Tomcat đón nhận các keyword đặc biệt trong API
+mvnrepository.com -> jersey container
+
+*******************Jersey Inject
+		.jars là cầu nối qua lại giữa Tomcat và Jersey, giúp code của mike trong Jersey có thể 
+		móc nối ngược lại Tomcat
+
+	  User
+	App ai đó --------- gọi url đặc biệt-web API ---------- Web server bên mike ------------DB
+				do bên mike viết ra			Tomcat ------- Jersey-- DB
+										Jersey inject
+										Jersey media (JSON converter)
+mvnrepository.com -> jersey inject
+
+*******************Jersey Media Jackson
+			.jars liên quan đến convert object trong code mike thành JSON và ngược lại!!!
+
+	Code Java tạo object
+	public class Student {
+	     private String id;
+	     private String name;
+	     ...
+             public Student(String id, String name) {
+		this.id = id;	     
+		this.name = name;
+	     }
+             ...
+	}
+   TẠO OBJECT TRONG JAVA
+   Student x = new Student("SE12345", "An Nguyễn")
+   biến object             object-vùng new
+
+		new Student("SE12345", "An Nguyễn")
+			object trong java, thể hiện 1 cái gì đó cụ thể có đặc tính và giá trị của đặc tính
+			tên: An Nguyễn, mssv: SE12345
+    OBJECT TRONG JAVASCRIPT
+		{"id":"SE123456", "name":"An Nguyễn"}
+			JSON string - JavaScript Object Notation
+mvnrepository.com -> jersey media
+
+******************* JDBC (Microsoft)
+			.jars giúp ta kết nối code Java với CSDL
+			chọn dependency ứng với JDK/JRE ứng với máy mike
+mvnrepository.com -> JDBC
+
+************** LOMBOK ko bắt buộc làm khi xài API
+		.jars giúp ta vượt qua những công việc nhàm chán khi làm DTOs Data transform oject
+									contrustor rỗng, full tham số, getter, setter, toStrong()...
+		giúp chúng ta không cần viết những đoạn code quen thuộc này, tự generate dùm ta
+=======================================================
+MÔ HÌNH HOẠT ĐỘNG CỦA WEB APP - CÂU CHUYỆN HẬU TRƯỜNG
+
+  User	gõ 1 URL duyệt trang web
+Browser	....... url truyền thống https:/bookstore.vn.......Web Server.......Bookdatabse
+  Client							Server
+	-------------------- request là url cần Server làm gì đó -----> trang HTML
+									code Java, C#, PHP -----DB
+	<------------------- response trang HTML
+		gửi request, nhận response theo quy tắc
+		giao tiếp gọi là HTTP protocol
+
+  HTTP quy tắc giao tiếp giữa Client và Server
+       muốn Server làm ì, nói với nó qua các lệnh
+  - 4 lệnh nổi tiếng khi nói với server
+  GET	:SERVER ơi, cho em 1 trang web, cho em info nằm trong trang web URL...: lấy data về 
+  POST	:SERVER ơi, em muốn tạo mới info, lưu trữ info mới mẻ nào đó lên server
+		đưa URL kèm data muốn lưu trữ tạo mới
+  PUT	:SERVER ơi, em muốn cập nhật info nào đó có sẵn bên server
+			đưa URL kèm data muốn update
+  DELETE:SERVER ơi, em muốn xoá info nào đó có sẵn trên server
+	QUÁ TRÌNH GIAO TIẾP GIỮA CLIENT   và SERVER
+				 BROWSER  và SERVER
+				NGƯỜI CẦN và BÊN CUNG CẤP/PHỤC VỤ
+	mọi giao tiếp phải theo quy tắc chuẩn mực bao gồm
+	TỪ AI YÊU CẦU ĐẾN AI PHỤC VỤ
+	MỆNH LỆNH LÀ GÌ
+	TÀI NGUYÊN, THÔNG TIN CẦN PHỤC VỤ LÀ GÌ
+	GỬI KÈM INFO GÌ KO
+
+	GÓI LẠI THÀNH 1 CÁI PHONG BÌ(truyền thống)
+	GÓI LẠI THÀNH 1 CÁI HTTP MESSAGE
+	BAO GỒM
+	- Bao đựng, phong bì bên ngoài - ghi thông tin gửi nhận, làm việc gì - HEADER
+	- Bên trong phong bì đựng nhiều info khác			     - BODY
+
+WEB API NÓ LỢI DỤNG, TẬN DỤNG HTTP PROTOCOL, TẬN DỤNG LUÔN HTTP MESSAGE ĐỂ GIAO TIẾP GIỮA
+BÊN XÀI API VÀ BÊN CUNG CẤP API/DATA
+
+Brower
+Postman -----------------kết nối/triệu gọi 1 API "từ xa"----------------Web Server--------DB
+App khác									Web app truyền thống
+Dân dev										JERSEY lắng nghe những URL
+										đặc biệt nó sẽ phục vụ
+		URL ĐẶC BIỆT NÀY THƯỜNG CÓ FORMAT NHƯ SAU
+		HTTPS://BOOKSTORE.VN. -> WEB APP THƯỜNG
+		HTTPS://LOCALHOST:6969/BOOKSTORE -> WEB APP THƯỜNG
+
+		HTTPS://BOOKSTORE.VN/api/v1/books 
+		HTTPS://LOCALHOST:6969/BOOKSTORE/api/v1/books 
+		khi gặp URL/api lức này JERSEY XUNG PHONG XỬ LÍ, LẤY DATA TRONG DB NẾU CẦN
+		RETURN VỀ JSON THAY VÌ TRANG WEB TRUYỀN THỐNG
+		URL ĐẶC BIỆT NÀY GỌI TÊN MỚI:
+						END-POINT(url để gọi API, gọi hàm từ xa trả về JSON)
+							dữ liệu trả về lúc này gọi là: TÀI NGUYÊN
+											RESOURCE
+							trả về tất cả các cuốn sách đang có trong DB
+							dưới dạng JSON-> TÀI NGUYÊN
+	END-POINT CŨNG PHẢI ĐI KÈM LOẠI HÀNH ĐỘNG GÌ: GET/POST/PUT/DELÊT
+- Đưa URL muốn lấy data thô dạng JSON của các cuốn sách đang có trong DB->GET API
+- Đưa URL muốn thêm 1 cuốn sách vào DB, gửi kèm info cuốn sách luôn (BODY) -> POST API
