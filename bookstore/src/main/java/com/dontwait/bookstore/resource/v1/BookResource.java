@@ -35,5 +35,6 @@ public class BookResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Book getBook() {
         return new Book("9780593138519", " Stolen Focus: Why You Can't Pay Attention ", "Johann Hari", 1, 2022);
+            
     }
 }

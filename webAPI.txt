@@ -258,3 +258,67 @@ Dân dev										JERSEY lắng nghe những URL
 	END-POINT CŨNG PHẢI ĐI KÈM LOẠI HÀNH ĐỘNG GÌ: GET/POST/PUT/DELÊT
 - Đưa URL muốn lấy data thô dạng JSON của các cuốn sách đang có trong DB->GET API
 - Đưa URL muốn thêm 1 cuốn sách vào DB, gửi kèm info cuốn sách luôn (BODY) -> POST API
+
+
+===================================
+ỨNG DỤNG CỦA WEB API
+
+Mobile App TBBank -----------------------------Web Server của TP Bank -------------- DB của TP Bankk
+    gọi API của Web app TPBank	        	IIS, Nginx, Tomcat		     - tiền, tài khoản
+    ko có câu lệnh SQL								     - tỉ giá, giá vàng
+    câu lệnh SQL nằm sẵn trong API
+    tpbank.vn/api/...				- code để render trang web
+						cho ai đó ghé web site ttpbank.vn
+
+							gọi API ở dưới
+
+						- code API để trả về JSON, data thô
+						giá vàng, tỉ giá, tiền chuyển khoản...
+							câu SQL here, CHỈ 1 CHỖ NÀY
+ Browser
+    tpbank.vn
+    gọi code website
+
+ Browser
+    vnexpress.net  hiển thị tin tức --------------------- Web Server của toà báo	------	DB toà báo
+    thanhnien.vn   24/24			          tương ứng
+    tuoitre.vn     hiển thị, giá vàng, đô la, tỉ giá	  code cua toà báo lấy data từ db toà báo
+		   thời tiết			          code của toà báo CÓ THÊM 1 PHẦN
+							  GỌI API CỦA TPBANK XIN GIÁ VÀNG, ĐÔ LA
+							  GỌI API CỦA BÊN KHÍ TƯỢNG/THỜI TIẾT
+							      API BÊN NGOÀI TRẢ VỀ DATA THÔ MIKE HIỂN THỊ 
+                             				      THEO STYLE RIÊNG CỦA TOÀ BÁO
+
+Web App mike viết
+Một nền tảng TMĐT	-------------------------- Web Server tương ứng ----------- DB tương ứng
+Web site bán hàng
+Lazada, Shoppe
+
+							gọi API MoMo, GHN, GHTK
+								----------------------Serve của API ngoài
+
+CHỐT DEAL:
+- API GIÚP LÀM APP CỦA CHÍNH NỘI BỘ CÔNG TY 1 CÁCH HIỆU QUẢ. NÓ LO CHƠI VỚI CSDL TRẢ VỀ/THAO TÁC
+DATA
+	- APP DO CTY VIẾT ĐEM RA NGOÀI USER DÙNG, CHỈ CẦN GỌI API LÀ ĐỦ
+	- Moblie app, Web app, Desktop app cũng cùng gọi API là đu. Ko cần viế Database Connection riêng
+
+* API GIÚP SHARE DATA MIKE CÓ CHO HÃNG THỨ BA XÀI KẾ, TÍCH HỢP VÀO CÙNG
+	- MoMo có khả năng giữ tiền của mike/mỗi chủ tk
+	- MoMo có API giúp thanh toán giùm cho app Lazada, Shoppe
+	- Gmail có rất nhiều account đang active
+	Share info acccount cho các app khác xài để dùng đăng nhập
+
+* VIỆC SHARE DATA MIKE CÓ RA BÊN NGOÀI CHO APP CÙNG CTY XÀI, NGOÀI CTY XÀI GỌI LÀ CHIA SẺ TÀI NGUYÊN -
+RESOURCE. NÓI VỀ API LÀ NÓI VỀ RESOURCE TÀI NGUYÊN ĐC PUBLIC RA DẠNG THÔ ĐỂ VỀ CHẾ BIẾN
+
+* VẬY MUỐN XÀI TÀI NGUYÊN NÀO CỦA NGƯỜI TA CHO, PHẢI CHỈ RA CÁI URL CỤ THỂ ĐỊNH VỊ CHÍNH XÁC
+  1 TÀI NGUYÊN -> 1 END-POINT- ĐIỂM ĐẾN CUỐI CÙNG GIÚP TRUY CẬP INFO
+
+* END-POINT URL THẾ NÀO DO DÂN DEV CODE API TẠO RA
+  /api/???do dân dev chủ động đặt ra
+
+* MỘT WEB API SỐNG CHUNG VỚI WEB SITE/WEB APP, CÙNG 1 PROJECT OKIE LUÔN
+  XÀI CHUNG TÊN MIỀN...COM bookstore.com						
+  KHÁC PHẦN ĐUÔI	   bookstore.com/api
+	

@@ -5,7 +5,6 @@
 package com.dontwait.bookstore.config;
 
 import jakarta.ws.rs.ApplicationPath;
-import java.awt.print.Book;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**

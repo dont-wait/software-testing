@@ -1,0 +1,7 @@
+com\dontwait\bookstore\dao\BookDAO.class
+com\dontwait\bookstore\resource\v2\BookResource.class
+com\dontwait\bookstore\resource\v1\BookResource.class
+com\dontwait\bookstore\resource\v3\BookResource.class
+com\dontwait\bookstore\config\BookApplication.class
+com\dontwait\bookstore\dto\Book.class
+com\dontwait\bookstore\util\DBUtil.class
