@@ -1,0 +1,107 @@
+============================
+CĂN BẢN VỀ MAVEN 
+1. MAVEN LÀ GÌ??? HAY HƠN ANT HAY KO???
+- Là 1 build tool - 1 công cụ - 1 chương trình giúp đóng gói dự án Java thành .jar .war
+Để có thể đóng gói đc dự án Java thành .jar .war thì Maven yêu cầu dân dev phải tổ chức thư mục source code .java theo cách mà Maven muốn
+Build tool nào thì phải tổ chức thư mục source code theo cách Tool đó muốn
+
+Ví dụ: 
+NẾu xài build tool 
+ANT 					MAVEN
+src\: chứa code chính			src\ chứa cả code chính và code test
+      .java				    main\	chứa code chính
+						.java
+
+test\: chứa code của Unit Test		    test\chứa code của Unit Test
+	...Test.java				...Test.java
+
+				VIẾT CODE CHO 2 BÊN 100% GIỐNG NHAU
+				GIỐNG ĐẾN CẢ TÊN PACKAGE
+		>>>>>>>>> ĐÓNG GÓI
+	build\: chứa các file .class		target\: gộp chung cả 2 output .class .jar
+	dist\: chứa các file .jar .war		   classes: chứa .class .jar .war
+- KHI VIẾT CODE JAVA, TA PHẢI CHỌN TRƯỚC CÁI TOOL SẼ DÙNG ĐỂ BUILD
+TỪ TOOL THÌ SẼ RA ĐC CÁI CẤU TRÚC THƯ MỤC PROJECT KHÁC NHAU
+ANT -> PROJECT KIỂU ANT
+MAVEN -> PROJECT KIỂU MAVEN
+* CÓ N LOẠI JAVA PROJECT ỨNG VỚI BUILD TOOL TƯƠNG ỨNG
+- Maven còn là tên gọi của loại dự án/project mà sau này sẽ dùng Maven tool để build
+
+* ĐIỀU KHÁC BIỆT LỚN LAO 1
+	 build.xml				pom.xml (Project Object Model)
+			chứa những lệnh/cú phát lệnh để yêu cầu
+			build tool cần làm gì để đóng gói!!!
+   file này xài default là đủ			Maven cho phép bạn customeize cực kì nhiều
+						thứ ở trong file này -> Maven sẽ làm theo
+						lệnh mà bạn đã customize
+* ĐIỀU KHÁC BIỆT LỚN LAO 2
+		CÁCH 2 TOOL QUẢN LÍ CÁC THƯ VIỆN ĐC KÉO VÀO XÀI 
+		TRONG PROJECT
+Các thưu viện cần xài 				CÁC THƯ VIỆN TỪ NAY SẼ GỌI LÀ 
+LIBRARY - .JAR .JAR				DEPENDENCY - tớ - cái app đang viết
+ta phải tự đi tìm, dowload trên mạng		phụ thuộc vào cậu - dependency
+về máy, tự add = tay vào trong project		của tớ
+-xài jdbc, thì phải đi tìm jdbc-version.jar
+add = tay vào trong project!!!			BẠN KO CẦN DOWNLOAD THƯ VIỆN VỀ
+						BẠN CHỈ BÁO RẰNG TA CẦN THƯ VIỆN X
+						GHI NÓ VÀO TRONG FILE POM.XML LÀ
+						XONG
+						- Maven tự biết lên mạng tìm đúng .jar
+						bạn cần, tự download về máy, tự add
+						vào project
+						"thuật ngữ" add dependency chẳng qua là 
+						khai báo tên thư viện .jar sẽ dùng trong dự án
+
+2. MỘT SỐ INFO LIÊN QUAN ĐẾN MAVEN
+* Profile - hồ sơ của 1 file .jar ~~~ profile MXH của ta, có nhiều info mô tả cho .jar
+ 1 file .jar bất kì luôn có 3 info sau:
+  - groupId: tên tổ chức/cty và tên dự án sở hữu .jar này
+	ví dụ: com.microsoft.sqlserver -> viết theo tên miền đảo ngược
+					  chính là 1 phần của package chứa .jar
+  - artifactId: tên của file jar, là 1 phần của dự án mà file .jar thuộc về
+	ví dụ: sqlserver-jdbc
+  - version: phiên bản của file .jar
+ 3 INFO NÀY ĐỂ NHẬN DIỆN DUY NHẤT 1 FILE .JAR TA SẼ ADD VÀO PROJECT CỦA TA
+ >>>> KHI KHAI BÁO, ADD DEPENDENCY VÀO TRONG FILE POM.XML, NHỚ LIỆT KÊ
+	3 INFO TRÊN, MAVEN SẼ BIẾT TÌM FILE .JAR ĐÚNG ĐẮN VÀ TẢI VỀ CHO BẠN
+
+* MỘT DỰ AND THEO KIỂU MAVEN, DÙNG MAVEN ĐỂ BUILD
+  MỘT THƯ VIỆN/DEPENDENCY KHI CHƠI VỚI MAVEN
+		CẢ HAI ĐIỀU PHẢI KHAI BÁO PROFILE GỒM 3 INFO NHƯ ĐÃ NÊU!!!
+
+com: công ty thương mại
+org: tổ chức tụ họp nhiều nhóm- từ thiện nhiều hơn
+SNAPSHOT: LÀM NHANH
+
+* MAVEN SẼ ĐI TÌM THƯ VIỆN Ở ĐÂU???
+  Trên Internaet có 1 website, 1 nhà kho chứa toàn bộ các file .JAR trên thế giới
+  nằm ở: https://mvnrepository.com
+  mỗi file .jar ở trên kho này đều có 1 profile gồm 3 info: groupId, artifactId, version
+  có sẵn cú pháp khai báo .jar này, bạn chỉ việc copy cú pháp này về
+  dán vào file POM.XML là xong
+  -> add depenedency sau vào pom.xml
+       <dependency>
+	 <groupId>???</groupId>
+	 ...
+	</dependency>
+
+ CÚ PHÁP ĐỂ ĐỊNH VỊ DUY NHẤT 1 FILE .JAR Ở KHO TOÀN CẦU
+ VÀ ĐỂ DOWNLOAD VỀ
+
+3. CÁCH CHƠI VỚI MAVEN
+- Tạo dự án kiểu Maven: nhớ khai báo profile cho dự án: groupId, artifactId, ver
+- Khai báo các dependency cần dùng, cú pháp lấy ở mvnrepository.com
+dán vào file POM.XML, ở section <dependencies>
+- Khai báo các plugin cần dùng, cú pháp lấy ở mvnrepository.com
+dán vào file POM.XML, ở section <build>
+
+- Clean & Build để Maven tự tải file .jar tương ứng về máy mình/local
+tự add vào project, 
+Build app, tự chạy bộ Unit Test luôn và đóng gói lệ thuộc vào mình yêu cầu
+Maven làm thế nào!!!
+
+Clean & Build của Netbeans mặc nhiên nó đi gọi ANT HOẶC MAVEN tuỳ loại dự án
+Khi bạn cài NetBeans đồng nghĩa bạn cài luôn ANT và MAVEN (gói combo)
+THỰC TẾ, BẠN KO THÈM XÀI MAVEN ĐI KÈM NETBEANS, BẠN CÀI BỘ
+MAVEN RỜI, CÓ RIÊNG LẺ MAVEN TRÊN MẠNG
+MAVEN, ANT, TOMCAT,... LÀ SẢN PHẨM CỦA ORG.APACHE

@@ -28,8 +28,8 @@ public class BookResource {
             return dao.getAll();
         }
         
-         @GET
-         @Path("{masach}")
+        @GET
+        @Path("{masach}")
         @Produces(MediaType.APPLICATION_JSON)
          public Book getOne(@PathParam("masach") String isbn) {
              return dao.getOne(isbn);
